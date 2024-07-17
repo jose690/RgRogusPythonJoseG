@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Consulta de Usuario</title>
+    <!-- Incluye la biblioteca jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Incluye la biblioteca de máscara de entrada -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+    <!-- Incluye el archivo de estilos CSS -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1 class="title">Prueba RG Rogus</h1>
+    <h2 class="subtitle">Webapp Python José Guzmán</h2>
+    <h2 class="subtitle">CTP Puriscal</h2>
+    <div class="container">
+        <!-- Campo de entrada para la cédula -->
+        <input type="text" id="cedula" placeholder="01-1234-5678" />
+        <!-- Botón para buscar usuario -->
+        <button onclick="buscarUsuario()">Buscar</button>
+        <!-- Div para mostrar los resultados de la búsqueda -->
+        <div id="resultado"></div>
+    </div>
+
+    <script>
+        $(document).ready(function(){
+            $('#cedula').mask('00-0000-0000');
+        });
+
+        // Función para buscar el usuario basado en la cédula ingresada
+        function buscarUsuario() {
+            // Obtiene el valor de la cédula ingresada
+            var cedula = $('#cedula').val().replace(/-/g, '');  // Elimina los guiones
+            // Realiza una solicitud AJAX al servidor
+            $.ajax({
+                url: '/obtener_datos_sql',  // URL de la ruta en el servidor Flask
+                type: 'GET',  // Tipo de solicitud HTTP (GET)
+                data: { cedula: cedula },  // Datos que se envían con la solicitud
+                success: function (response) {  // Función de éxito que se ejecuta si la solicitud es exitosa
+                    if (response.success) {
+                        // Si se encuentra el usuario, muestra sus datos en el div 'resultado'
+                        $('#resultado').html('Nombre: ' + response.data.nombre + '<br>Primer apellido: ' + response.data.apellido1 + '<br>Segundo apellido: ' + response.data.apellido2 + '<br>Fecha de Nacimiento: ' + response.data.fechaNacimiento);
+                    } else {
+                        // Si no se encuentra el usuario, muestra un mensaje de error
+                        $('#resultado').html('<span class="error">' + response.message + '</span>');
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>
