@@ -9,7 +9,11 @@ RUN apt-get update && apt-get install -y \
     curl \
     apt-transport-https \
     gnupg \
-    unixodbc-dev
+    unixodbc-dev \
+    build-essential \
+    libssl-dev \
+    libffi-dev \
+    python-dev
 
 # Añade la clave GPG de Microsoft
 RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
