@@ -1,0 +1,10 @@
+{
+    "folders": [
+        {
+            "path": ".."  // Incluye la carpeta principal (nivel superior) en el espacio de trabajo
+        }
+    ],
+    "settings": {
+        // Aquí se pueden añadir configuraciones específicas del espacio de trabajo
+    }
+}
