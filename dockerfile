@@ -1,5 +1,5 @@
 # Usa una imagen base oficial de Python
-FROM python:3.8-slim
+FROM python:3.12.4
 
 # Establece el directorio de trabajo
 WORKDIR /app
@@ -13,7 +13,8 @@ RUN apt-get update && apt-get install -y \
     build-essential \
     libssl-dev \
     libffi-dev \
-    python-dev
+    python-dev \
+    gcc
 
 # Añade la clave GPG de Microsoft
 RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
