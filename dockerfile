@@ -1,5 +1,5 @@
 # Usa una imagen base oficial de Python
-FROM python:3.12.4
+FROM python:3.8-slim
 
 # Establece el directorio de trabajo
 WORKDIR /app
@@ -14,7 +14,8 @@ RUN apt-get update && apt-get install -y \
     libssl-dev \
     libffi-dev \
     python-dev \
-    gcc
+    gcc \
+    && apt-get clean
 
 # Añade la clave GPG de Microsoft
 RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
@@ -24,6 +25,9 @@ RUN curl https://packages.microsoft.com/config/debian/10/prod.list | tee /etc/ap
 
 # Instala el ODBC Driver 17 para SQL Server
 RUN apt-get update && ACCEPT_EULA=Y apt-get install -y msodbcsql17
+
+# Instala unixodbc para asegurarse de que el controlador ODBC funcione
+RUN apt-get install -y unixodbc
 
 # Copia los archivos de tu aplicación al contenedor
 COPY . /app
