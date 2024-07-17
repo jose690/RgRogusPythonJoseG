@@ -49,4 +49,4 @@ def obtener_datos_sql():
 
 # Ejecuta la aplicación Flask en modo depuración si este archivo se ejecuta como el programa principal
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)
