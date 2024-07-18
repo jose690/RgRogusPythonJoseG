@@ -24,7 +24,7 @@ def obtener_datos_sql():
         # Obtiene el valor de 'cedula' de los parámetros de la solicitud
         cedula = request.args.get('cedula').replace('-', '')  # Elimina los guiones
         # Cadena de conexión a la base de datos
-        connection_string = 'DRIVER={ODBC Driver 17 for SQL Server};SERVER=201.237.248.149;DATABASE=PracticaUtilidades;UID=pruebas2016;PWD=pruebas2016'
+        connection_string = 'DRIVER={ODBC Driver 18 for SQL Server};SERVER=201.237.248.149;DATABASE=PracticaUtilidades;UID=pruebas2016;PWD=pruebas2016'
         # Establece una conexión con la base de datos
         conn = pyodbc.connect(connection_string)
         # Crea un cursor para ejecutar la consulta
