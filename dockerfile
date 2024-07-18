@@ -5,7 +5,7 @@ FROM python:3.8-slim
 WORKDIR /app
 
 # Instala las dependencias del sistema necesarias
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
     apt-transport-https \
     gnupg \
@@ -15,6 +15,8 @@ RUN apt-get update && apt-get install -y \
     libffi-dev \
     python-dev \
     gcc \
+    unixodbc \
+    libpq-dev 
     && apt-get clean
 
 # Añade la clave GPG de Microsoft
