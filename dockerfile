@@ -1,5 +1,5 @@
 # Usa una imagen base oficial de Python
-FROM python:3.8-slim
+FROM python:3.9.2-slim-buster
 
 # Establece el directorio de trabajo
 WORKDIR /app
@@ -15,8 +15,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libffi-dev \
     python-dev \
     gcc \
+    g++ \
     unixodbc \
-    libpq-dev 
+    libpq-dev \
     && apt-get clean
 
 # Añade la clave GPG de Microsoft
