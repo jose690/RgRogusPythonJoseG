@@ -18,24 +18,25 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     gcc \
     g++ \
     libpq-dev \
-    && apt-get clean && rm -rf /var/lib/apt/lists/*
+    && apt-get clean
 
-# Añade la clave GPG de Microsoft y el repositorio para ODBC Driver 18
-RUN curl https://packages.microsoft.com/keys/microsoft.asc | tee /etc/apt/trusted.gpg.d/microsoft.asc && \
-    curl https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/prod.list | tee /etc/apt/sources.list.d/mssql-release.list
+# Añade la clave GPG de Microsoft
+RUN curl https://packages.microsoft.com/keys/microsoft.asc | tee /etc/apt/trusted.gpg.d/microsoft.asc
+
+# Añade el repositorio de Microsoft para el ODBC Driver 18
+RUN curl https://packages.microsoft.com/config/debian/10/prod.list | tee /etc/apt/sources.list.d/mssql-release.list
 
 # Instala el ODBC Driver 18 para SQL Server
-RUN apt-get update && ACCEPT_EULA=Y apt-get install -y \
-    msodbcsql18 \
-    mssql-tools18 \
-    && apt-get clean && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && ACCEPT_EULA=Y apt-get install -y msodbcsql18 mssql-tools18
+
+# Establece las variables de entorno necesarias
+ENV PATH=/opt/mssql-tools18/bin:$PATH
 
 # Copia los archivos de tu aplicación al contenedor
-COPY . .
+COPY . /app
 
 # Instala las dependencias de Python
-RUN pip install --no-cache-dir -r requirements.txt && \
-    rm -rf ~/.cache/pip
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Expone el puerto en el que la aplicación correrá
 EXPOSE 5000
