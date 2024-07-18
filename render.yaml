@@ -7,12 +7,12 @@ services:
     startCommand: "python app.py"
     envVars:
       - key: DB_SERVER
-        value: your_db_server
+        value: 201.237.248.149
       - key: DB_NAME
-        value: your_db_name
+        value: PracticaUtilidades
       - key: DB_USER
-        value: your_db_user
+        value: pruebas2016
       - key: DB_PASSWORD
-        value: your_db_password
+        value: pruebas2016
       - key: SECRET_KEY
         value: your_secret_key
