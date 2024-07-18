@@ -20,11 +20,11 @@ RUN apt-get update && apt-get install -y \
 # Añade la clave GPG de Microsoft
 RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
 
-# Añade el repositorio de Microsoft para el ODBC Driver 17
+# Añade el repositorio de Microsoft para el ODBC Driver 18
 RUN curl https://packages.microsoft.com/config/debian/10/prod.list | tee /etc/apt/sources.list.d/mssql-release.list
 
 # Instala el ODBC Driver 17 para SQL Server
-RUN apt-get update && ACCEPT_EULA=Y apt-get install -y msodbcsql17
+RUN apt-get update && ACCEPT_EULA=Y apt-get install -y msodbcsql18
 
 # Instala unixodbc para asegurarse de que el controlador ODBC funcione
 RUN apt-get install -y unixodbc
